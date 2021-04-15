@@ -9,6 +9,7 @@ class App extends Component {
 		this.state={
 			items: [],
 			itemsToShow: "all",
+			//36 karakterlik, sayılar ve harflerden oluşan, bir settir. 
 			id: uuid(),
 			item: '',
 			editItem: false,
@@ -48,16 +49,7 @@ class App extends Component {
 		});
 	};
 
-	handleDoneTask = (id, completed) => {
-		const filteredItems = this.state.items.map(item => {
-			item.id === id && (item.completed = !item.completed)
-			return item
-		})
-
-		this.setState({
-			items: filteredItems,
-		})
-	}
+	
 
 	handleDelete = id => {
 		const filteredItems = this.state.items.filter(item => item.id !== id)
@@ -80,36 +72,21 @@ class App extends Component {
 		})
 	}
 
-	handleDeleteDoneTasks = () => {
-		const filteredItems = this.state.items.filter(item => item.completed === false)
-
-		this.setState({
-			items: filteredItems
-		})
-	}
-
-	clearList = () => {
-		this.setState({
-			items: []
-		})
-	}
+	
+	
 
 	render() {
 		let items = []
 
 		if (this.state.itemsToShow === "all") {
 			items = this.state.items;
-		} else if (this.state.itemsToShow === "todo") {
-			items = this.state.items.filter(item => !item.completed);
-		} else if (this.state.itemsToShow === "done") {
-			items = this.state.items.filter(item => item.completed);			
-		}
+		} 
 
 		return (
 			<div className="container">
 				<div className="row">
 					<div className="col-10 col-md-8 mx-auto mt-4">
-						<h3 className="text-capitalize text-center">TodoInput</h3>
+						<h3 className="text-capitalize text-center">Yapılacaklar Listesi</h3>
 						<TodoInput
 							item={this.state.item}
 							handleChange={this.handleChange}
@@ -117,12 +94,8 @@ class App extends Component {
 						/>
 						<TodoList
 							items={items}
-							filterDoneTasks={this.filterDoneTasks}
-							clearList={this.clearList}
 							handleDelete={this.handleDelete}
 							handleEdit={this.handleEdit}
-							handleDoneTask={this.handleDoneTask}
-							handleDeleteDoneTasks={this.handleDeleteDoneTasks}
 							updateTodosToShow={this.updateTodosToShow}
 						/>
 					</div>
